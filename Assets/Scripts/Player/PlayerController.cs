@@ -4,6 +4,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed;
+    [SerializeField] private bool _isHorizontalReverse = false;
+    [SerializeField] private float _jumpForce;
     [SerializeField] private Rigidbody _rigidbody;
 
     private void Awake()
@@ -13,20 +15,16 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.A))
+        float horizontalSpeed = Input.GetAxis("Horizontal") * _moveSpeed;
+        if (_isHorizontalReverse)
         {
-            _rigidbody.AddForce(Vector3.left);
+            horizontalSpeed = -horizontalSpeed;
         }
+        _rigidbody.velocity = new Vector3(horizontalSpeed, _rigidbody.velocity.y, 0f);
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetButtonDown("Jump"))
         {
-            _rigidbody.AddForce(Vector3.right);
+            _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, _jumpForce, 0f);
         }
-
-        if (Input.GetKey(KeyCode.Space))
-        {
-            _rigidbody.AddForce(Vector3.up);
-        }
-
     }
 }
