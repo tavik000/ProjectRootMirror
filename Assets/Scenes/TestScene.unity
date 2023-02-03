@@ -238,6 +238,7 @@ MonoBehaviour:
   _isHorizontalReverse: 1
   _jumpForce: 6
   _rigidbody: {fileID: 0}
+  _capsuleCollider: {fileID: 0}
 --- !u!54 &157333253
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -605,7 +606,7 @@ GameObject:
   - component: {fileID: 1614333787}
   m_Layer: 0
   m_Name: AdultPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -622,10 +623,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d02814670a04d6daefd89263879873a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 5
+  _moveSpeed: 2.5
   _isHorizontalReverse: 0
   _jumpForce: 6
   _rigidbody: {fileID: 0}
+  _capsuleCollider: {fileID: 0}
 --- !u!54 &1614333788
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -714,7 +716,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1614333786}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.09, y: 1.1670321, z: 2.499404}
+  m_LocalPosition: {x: 3.54, y: 1.1670321, z: 2.499404}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -19,10 +19,16 @@ public class CharacterAnimator : MonoBehaviour
     }
 
 
-    private int _moveSpeed = Animator.StringToHash("MoveSpeed");
+    private readonly int _moveSpeedHash = Animator.StringToHash("MoveSpeed");
+    private readonly int _jumpHash = Animator.StringToHash("IsJumping");
 
     public void SetMoveSpeed(float moveSpeed)
     {
-        Animator.SetFloat(_moveSpeed, moveSpeed);
+        Animator.SetFloat(_moveSpeedHash, moveSpeed);
+    }
+
+    public void SetJump(bool value)
+    {
+        _animator.SetBool(_jumpHash, value);
     }
 }
