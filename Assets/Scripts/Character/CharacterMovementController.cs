@@ -30,6 +30,13 @@ public class CharacterMovementController : MonoBehaviour
 
     private void Update()
     {
+        HandleHorizontalMovement();
+        HandleJump();
+    }
+
+    
+    private void HandleHorizontalMovement()
+    {
         float horizontalSpeed = Input.GetAxis("Horizontal") * _moveSpeed;
         if (_isHorizontalReverse)
         {
@@ -44,7 +51,10 @@ public class CharacterMovementController : MonoBehaviour
         }
 
         _characterAnimator.SetMoveSpeed(Mathf.Abs(_rigidbody.velocity.x));
+    }
 
+    private void HandleJump()
+    {
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, _jumpForce, 0f);
