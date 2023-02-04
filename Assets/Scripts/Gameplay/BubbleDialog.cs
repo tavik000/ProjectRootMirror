@@ -10,9 +10,11 @@ public class BubbleDialog : MonoBehaviour
     [SerializeField] private string showString;
     [SerializeField] private TextMeshPro text;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private AudioSource dialogSfx;
 
     private void Start()
     {
+        dialogSfx = GetComponent<AudioSource>();
         text.text = showString;
         spriteRenderer.transform.localScale = Vector3.zero;
     }
@@ -24,7 +26,7 @@ public class BubbleDialog : MonoBehaviour
             Trigger(true);
         }
     }
-    
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -35,6 +37,14 @@ public class BubbleDialog : MonoBehaviour
 
     public void Trigger(bool isOn)
     {
+        if (isOn)
+        {
+            if (dialogSfx != null)
+            {
+                dialogSfx.PlayOneShot(dialogSfx.clip);
+            }
+        }
+
         animator.SetBool("IsOn", isOn);
     }
 
@@ -52,7 +62,8 @@ public class BubbleDialog : MonoBehaviour
         while (Time.time < startTime + duration)
         {
             yield return null;
-        } 
+        }
+
         Trigger(false);
     }
 }
