@@ -17,8 +17,10 @@ public class TileGenerator : MonoBehaviour
                 for (int k = 0; k < TileSize.z; k++)
                 {
                     GameObject go = Instantiate(Prefab, transform);
-                    go.transform.localPosition = new Vector3(-TileSize.x / 2 + i,
-                        -TileSize.y / 2 + j, -TileSize.z / 2 + k);
+                    go.transform.localPosition = new Vector3(
+                        (-TileSize.x / 2) + i + (TileSize.x % 2 == 0 ? 0 :0.5f),
+                        (-TileSize.y / 2) + j+ (TileSize.y % 2 == 0 ? 0 :0.5f),
+                        (-TileSize.z / 2) + k+ (TileSize.z % 2 == 0 ? 0 :0.5f));
                 }
             }
         }
