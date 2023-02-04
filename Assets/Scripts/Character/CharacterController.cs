@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class CharacterMovementController : MonoBehaviour
+public class CharacterController : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed;
     [SerializeField] private bool _isHorizontalReverse = false;
@@ -9,13 +9,17 @@ public class CharacterMovementController : MonoBehaviour
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private CapsuleCollider _capsuleCollider;
     [SerializeField] private float _jumpWindUpDuration = 0.3f;
+    [SerializeField] private float _interactWindUpDuration = 1.5f;
 
     private CharacterAnimator _characterAnimator;
 
     private float _jumpTimestamp;
+    private float _interactTimestamp;
     private bool _isTouchingLadder;
     private bool _isClimbing;
+    private bool _isJumping;
     private Transform _touchingLadderObject;
+    private bool _isInteracting;
 
     private void Awake()
     {
@@ -36,12 +40,13 @@ public class CharacterMovementController : MonoBehaviour
         HandleHorizontalMovement();
         HandleJump();
         HandleClimb();
+        HandleInteract();
     }
 
 
     private void HandleHorizontalMovement()
     {
-        if (_isClimbing)
+        if (_isClimbing || _isInteracting)
         {
             return;
         }
@@ -67,19 +72,25 @@ public class CharacterMovementController : MonoBehaviour
 
     private void HandleJump()
     {
+        if (_isInteracting) return;
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, _jumpForce, 0f);
             _characterAnimator.SetJump(true);
             _jumpTimestamp = Time.time;
+            _isJumping = true;
         }
 
 
-        if (_characterAnimator != null)
+        if (_isJumping)
         {
-            if (Time.time > _jumpTimestamp + _jumpWindUpDuration && IsGrounded())
+            if (_characterAnimator != null)
             {
-                _characterAnimator.SetJump(false);
+                if (Time.time > _jumpTimestamp + _jumpWindUpDuration && IsGrounded())
+                {
+                    _characterAnimator.SetJump(false);
+                    _isJumping = false;
+                }
             }
         }
     }
@@ -97,7 +108,8 @@ public class CharacterMovementController : MonoBehaviour
                 (characterTransform = transform).rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
                 Vector3 characterPosition = characterTransform.position;
                 Vector3 clampXPos =
-                    Vector3.Lerp(characterPosition, new Vector3(_touchingLadderObject.position.x, characterPosition.y, 0f), 0.05f);
+                    Vector3.Lerp(characterPosition,
+                        new Vector3(_touchingLadderObject.position.x, characterPosition.y, 0f), 0.05f);
                 characterPosition = clampXPos;
                 characterTransform.position = characterPosition;
             }
@@ -121,6 +133,7 @@ public class CharacterMovementController : MonoBehaviour
             {
                 _characterAnimator.Animator.speed = 0f;
             }
+
             if (!_isTouchingLadder || IsGrounded())
             {
                 _isClimbing = false;
@@ -144,6 +157,34 @@ public class CharacterMovementController : MonoBehaviour
         }
     }
 
+    private void HandleInteract()
+    {
+        if (_isClimbing || _isJumping)
+        {
+            return;
+        } 
+        if (Input.GetKeyDown(KeyCode.E) && !_isInteracting)
+        {
+            _isInteracting = true;
+            _interactTimestamp = Time.time;
+            if (_characterAnimator != null)
+            {
+                _characterAnimator.SetInteract(_isInteracting);
+            }
+        }
+
+        if (_isInteracting)
+        {
+            if (Time.time > _interactTimestamp + _interactWindUpDuration)
+            {
+                _isInteracting = false;
+                if (_characterAnimator != null)
+                {
+                    _characterAnimator.SetInteract(_isInteracting);
+                }
+            }
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {

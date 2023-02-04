@@ -22,6 +22,7 @@ public class CharacterAnimator : MonoBehaviour
     private readonly int _moveSpeedHash = Animator.StringToHash("MoveSpeed");
     private readonly int _jumpHash = Animator.StringToHash("IsJumping");
     private readonly int _climbHash = Animator.StringToHash("IsClimbing");
+    private readonly int _interactHash = Animator.StringToHash("IsInteracting");
 
     public void SetMoveSpeed(float moveSpeed)
     {
@@ -36,5 +37,10 @@ public class CharacterAnimator : MonoBehaviour
     public void SetClimb(bool value)
     {
         _animator.SetBool(_climbHash, value);
+    }
+    
+    public void SetInteract(bool value)
+    {
+        _animator.SetBool(_interactHash, value);
     }
 }
