@@ -13,7 +13,7 @@ public class CameraManager : SingletonManager<CameraManager>
     [SerializeField] private float maxRotationDegree;
     [SerializeField] private Vector3 cameraScale;
     [SerializeField] private Vector3 cameraOffset;
-    
+    [SerializeField] private AudioSource audioSource;
 
     private Camera _camera;
     private bool _forward;
@@ -52,8 +52,8 @@ public class CameraManager : SingletonManager<CameraManager>
             Vector3 targetPos = (adult.transform.position + kid.transform.position) / 2 +
                                 _camera.orthographicSize / 4f * Vector3.up;
             pivot.position = Vector3.Lerp(pivot.position, targetPos, 0.01f);
-            Vector3 localPos = new Vector3(0, Mathf.Max(distance * cameraScale.y, 0), 
-                                   Mathf.Min(-distance * cameraScale.z, -7.5f)) + cameraOffset;
+            Vector3 localPos = new Vector3(0, Mathf.Max(distance * cameraScale.y, 0),
+                Mathf.Min(-distance * cameraScale.z, -7.5f)) + cameraOffset;
             _camera.transform.localPosition = Vector3.Lerp(_camera.transform.localPosition, localPos, 0.01f);
         }
     }
@@ -61,5 +61,6 @@ public class CameraManager : SingletonManager<CameraManager>
     public void Rotate180()
     {
         _forward = !_forward;
+        audioSource.PlayOneShot(audioSource.clip);
     }
 }
