@@ -43,6 +43,7 @@ public class OneWayPlatform : MonoBehaviour
         collider.isTrigger = false;
     }
 
+    [SerializeField] private float ignoreDot;
     private void OnTriggerStay(Collider other)
     {
         // Simulate a collision between our trigger and the intruder to check
@@ -56,12 +57,12 @@ public class OneWayPlatform : MonoBehaviour
             float dot = Vector3.Dot(Direction, collisionDirection);
 
             // Opposite direction; passing not allowed.
-            if (dot < 0)
+            if (dot < ignoreDot)
             {
                 // Making sure that the two object are NOT ignoring each other.
                 Physics.IgnoreCollision(collider, other, false);
             }
-            else
+            else // dot > 0, ignore
             {
                 // Making the colliders ignore each other, and thus allow passage
                 // from one way.

@@ -28,6 +28,7 @@ public class CameraManager : SingletonManager<CameraManager>
         {
             Rotate180();
         }
+
         UpdateRotation();
         UpdateMovement();
     }
@@ -44,9 +45,10 @@ public class CameraManager : SingletonManager<CameraManager>
         if (adult != null && kid != null)
         {
             float distance = Vector3.Distance(adult.position, kid.position);
-            float targetSize = Mathf.Max(2, distance * cameraScale);
+            float targetSize = Mathf.Max(5, distance * cameraScale);
             _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, targetSize, 0.01f);
-            Vector3 targetPos = (adult.transform.position + kid.transform.position) / 2;
+            Vector3 targetPos = (adult.transform.position + kid.transform.position) / 2 +
+                                _camera.orthographicSize / 4f * Vector3.up;
             pivot.position = Vector3.Lerp(pivot.position, targetPos, 0.01f);
         }
     }
