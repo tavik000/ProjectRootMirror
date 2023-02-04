@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class SignalSender : MonoBehaviour
 {
-    [SerializeField] private SignalReceiver signalReceiver;
+    [SerializeField] private List<SignalReceiver> signalReceivers;
 
     public void SendSignal(bool isOn)
     {
-        if (signalReceiver != null)
+        foreach (var receiver in signalReceivers)
         {
-            signalReceiver.TriggerSignal(isOn);
+            receiver.TriggerSignal(isOn);
         }
     }
     
