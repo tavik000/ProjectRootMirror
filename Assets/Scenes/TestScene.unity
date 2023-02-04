@@ -652,7 +652,7 @@ GameObject:
   - component: {fileID: 1614333788}
   - component: {fileID: 1614333787}
   m_Layer: 0
-  m_Name: AdultCharacter
+  m_Name: KidCharacter
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -910,7 +910,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 342cfe6dba8298e46a34577cf422dbdb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 342cfe6dba8298e46a34577cf422dbdb, type: 3}
       propertyPath: m_LocalPosition.y

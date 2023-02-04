@@ -14,6 +14,8 @@ public class CharacterMovementController : MonoBehaviour
 
     private float _jumpTimestamp;
     private bool _isTouchingLadder;
+    private bool _isClimbing;
+    private Transform _touchingLadderObject;
 
     private void Awake()
     {
@@ -39,6 +41,11 @@ public class CharacterMovementController : MonoBehaviour
 
     private void HandleHorizontalMovement()
     {
+        if (_isClimbing)
+        {
+            return;
+        }
+
         float horizontalSpeed = Input.GetAxis("Horizontal") * _moveSpeed;
         if (_isHorizontalReverse)
         {
@@ -80,10 +87,60 @@ public class CharacterMovementController : MonoBehaviour
     private void HandleClimb()
     {
         float verticalSpeed = Input.GetAxis("Vertical") * _moveSpeed;
-
-        if (_isTouchingLadder && Mathf.Abs(verticalSpeed) > 0.1f)
+        bool previousIsClimbing = _isClimbing;
+        if (!_isClimbing)
         {
-            _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, verticalSpeed, 0f);
+            if (_isTouchingLadder && Mathf.Abs(verticalSpeed) > 0.1f)
+            {
+                _isClimbing = true;
+                Transform characterTransform;
+                (characterTransform = transform).rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
+                Vector3 characterPosition = characterTransform.position;
+                Vector3 clampXPos =
+                    Vector3.Lerp(characterPosition, new Vector3(_touchingLadderObject.position.x, characterPosition.y, 0f), 0.05f);
+                characterPosition = clampXPos;
+                characterTransform.position = characterPosition;
+            }
+        }
+
+
+        if (_isClimbing)
+        {
+            if (_rigidbody.useGravity)
+            {
+                _rigidbody.useGravity = false;
+            }
+
+            _rigidbody.velocity = new Vector3(0f, verticalSpeed, 0f);
+            bool isVerticalMoving = Mathf.Abs(_rigidbody.velocity.y) > 0.1f;
+            if (isVerticalMoving)
+            {
+                _characterAnimator.Animator.speed = 1f;
+            }
+            else
+            {
+                _characterAnimator.Animator.speed = 0f;
+            }
+            if (!_isTouchingLadder || IsGrounded())
+            {
+                _isClimbing = false;
+            }
+        }
+        else
+        {
+            if (!_rigidbody.useGravity)
+            {
+                _rigidbody.useGravity = true;
+            }
+        }
+
+
+        if (previousIsClimbing != _isClimbing)
+        {
+            if (_characterAnimator != null)
+            {
+                _characterAnimator.SetClimb(_isClimbing);
+            }
         }
     }
 
@@ -92,6 +149,7 @@ public class CharacterMovementController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ladder"))
         {
+            _touchingLadderObject = other.gameObject.transform;
             _isTouchingLadder = true;
         }
     }
@@ -101,6 +159,7 @@ public class CharacterMovementController : MonoBehaviour
         if (other.gameObject.CompareTag("Ladder"))
         {
             _isTouchingLadder = false;
+            _touchingLadderObject = null;
         }
     }
 }
