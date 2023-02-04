@@ -13,7 +13,8 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private float _interactWindUpDuration = 1.5f;
     [SerializeField] private Transform _groundCheckTrans;
     [SerializeField] private LayerMask _groundLayer;
-
+    [SerializeField] private AudioSource _jumpSfx;
+    
     private CharacterAnimator _characterAnimator;
 
     private float _jumpTimestamp;
@@ -81,6 +82,10 @@ public class CharacterController : MonoBehaviour
             _characterAnimator.SetJump(true);
             _jumpTimestamp = Time.time;
             _isJumping = true;
+            if (_jumpSfx != null)
+            {
+                _jumpSfx.PlayOneShot(_jumpSfx.clip);
+            }
         }
 
 
