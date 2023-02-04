@@ -13,7 +13,8 @@ public class CharacterMovementController : MonoBehaviour
     private CharacterAnimator _characterAnimator;
 
     private float _jumpTimestamp;
-    
+    private bool _isTouchingLadder;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -32,9 +33,10 @@ public class CharacterMovementController : MonoBehaviour
     {
         HandleHorizontalMovement();
         HandleJump();
+        HandleClimb();
     }
 
-    
+
     private void HandleHorizontalMovement()
     {
         float horizontalSpeed = Input.GetAxis("Horizontal") * _moveSpeed;
@@ -50,7 +52,10 @@ public class CharacterMovementController : MonoBehaviour
                 Quaternion.LookRotation(horizontalSpeed > 0f ? Vector3.right : Vector3.left, Vector3.up);
         }
 
-        _characterAnimator.SetMoveSpeed(Mathf.Abs(_rigidbody.velocity.x));
+        if (_characterAnimator != null)
+        {
+            _characterAnimator.SetMoveSpeed(Mathf.Abs(_rigidbody.velocity.x));
+        }
     }
 
     private void HandleJump()
@@ -62,9 +67,40 @@ public class CharacterMovementController : MonoBehaviour
             _jumpTimestamp = Time.time;
         }
 
-        if (Time.time > _jumpTimestamp + _jumpWindUpDuration && IsGrounded())
+
+        if (_characterAnimator != null)
         {
-            _characterAnimator.SetJump(false);
+            if (Time.time > _jumpTimestamp + _jumpWindUpDuration && IsGrounded())
+            {
+                _characterAnimator.SetJump(false);
+            }
+        }
+    }
+
+    private void HandleClimb()
+    {
+        float verticalSpeed = Input.GetAxis("Vertical") * _moveSpeed;
+
+        if (_isTouchingLadder && Mathf.Abs(verticalSpeed) > 0.1f)
+        {
+            _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, verticalSpeed, 0f);
+        }
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Ladder"))
+        {
+            _isTouchingLadder = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Ladder"))
+        {
+            _isTouchingLadder = false;
         }
     }
 }
