@@ -9,6 +9,8 @@ public class ClickableButton : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private bool cannotOff;
 
+    [SerializeField] private AudioSource clickSfx;
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -27,6 +29,13 @@ public class ClickableButton : MonoBehaviour
 
     private void Trigger(bool isOn)
     {
+        if (isOn)
+        {
+            if (clickSfx != null)
+            {
+                clickSfx.PlayOneShot(clickSfx.clip);
+            }
+        }
         if (cannotOff && !isOn)
         {
             return;
