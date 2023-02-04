@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public class CharacterController : MonoBehaviour
@@ -10,6 +11,8 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private CapsuleCollider _capsuleCollider;
     [SerializeField] private float _jumpWindUpDuration = 0.3f;
     [SerializeField] private float _interactWindUpDuration = 1.5f;
+    [SerializeField] private Transform _groundCheckTrans;
+    [SerializeField] private LayerMask _groundLayer;
 
     private CharacterAnimator _characterAnimator;
 
@@ -30,9 +33,8 @@ public class CharacterController : MonoBehaviour
 
     private bool IsGrounded()
     {
-        const float threshold = 0.1f;
-        float distanceToGround = _capsuleCollider.height / 2f;
-        return Physics.Raycast(transform.position, Vector3.down, distanceToGround + threshold);
+        bool result = Physics.CheckSphere(_groundCheckTrans.position, 0.1f, _groundLayer);
+        return result;
     }
 
     private void Update()
