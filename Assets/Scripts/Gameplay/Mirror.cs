@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Mirror : MonoBehaviour
 {
+    [SerializeField] private AudioSource _nextLevelSfx;
     private float _playerCount;
     private void OnTriggerEnter(Collider other)
     {
@@ -13,6 +14,11 @@ public class Mirror : MonoBehaviour
             _playerCount++;
             if (_playerCount >= 2)
             {
+                if (_nextLevelSfx != null)
+                {
+                    _nextLevelSfx.PlayOneShot(_nextLevelSfx.clip);
+                }
+
                 GameSceneManager.GoNextLevel();
             }
         }
