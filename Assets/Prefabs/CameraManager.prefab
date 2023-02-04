@@ -59,7 +59,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 15
   m_Depth: -1
   m_CullingMask:
@@ -133,7 +133,8 @@ MonoBehaviour:
   adult: {fileID: 0}
   kid: {fileID: 0}
   maxRotationDegree: 180
-  cameraScale: 0.5
+  cameraScale: {x: 0, y: -0.1, z: 0.7}
+  cameraOffset: {x: 0, y: -2, z: 0}
 --- !u!1 &8509474396380324274
 GameObject:
   m_ObjectHideFlags: 0

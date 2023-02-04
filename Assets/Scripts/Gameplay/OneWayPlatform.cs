@@ -21,6 +21,7 @@ public class OneWayPlatform : MonoBehaviour
     private void Awake()
     {
         collider = GetComponent<BoxCollider>();
+        GetComponent<MeshRenderer>().enabled = false;
 
         // Adding the BoxCollider and making sure that its sizes match the ones
         // of the OG collider.

@@ -11,7 +11,9 @@ public class CameraManager : SingletonManager<CameraManager>
     [SerializeField] private Transform adult;
     [SerializeField] private Transform kid;
     [SerializeField] private float maxRotationDegree;
-    [SerializeField] private float cameraScale;
+    [SerializeField] private Vector3 cameraScale;
+    [SerializeField] private Vector3 cameraOffset;
+    
 
     private Camera _camera;
     private bool _forward;
@@ -45,11 +47,14 @@ public class CameraManager : SingletonManager<CameraManager>
         if (adult != null && kid != null)
         {
             float distance = Vector3.Distance(adult.position, kid.position);
-            float targetSize = Mathf.Max(5, distance * cameraScale);
-            _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, targetSize, 0.01f);
+            //float targetSize = Mathf.Max(5, distance * cameraScale);
+            //_camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, targetSize, 0.01f);
             Vector3 targetPos = (adult.transform.position + kid.transform.position) / 2 +
                                 _camera.orthographicSize / 4f * Vector3.up;
             pivot.position = Vector3.Lerp(pivot.position, targetPos, 0.01f);
+            Vector3 localPos = new Vector3(0, distance * cameraScale.y, 
+                                   Mathf.Min(-distance * cameraScale.z, -5)) + cameraOffset;
+            _camera.transform.localPosition = Vector3.Lerp(_camera.transform.localPosition, localPos, 0.01f);
         }
     }
 
