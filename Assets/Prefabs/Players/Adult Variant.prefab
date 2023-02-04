@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 888548815031310345, guid: 019864ef7880e594a961313ddb6a8053, type: 3}
       propertyPath: _jumpForce
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 888548815031310345, guid: 019864ef7880e594a961313ddb6a8053, type: 3}
       propertyPath: _isHorizontalReverse

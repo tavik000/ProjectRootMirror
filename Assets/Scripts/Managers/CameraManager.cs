@@ -52,8 +52,8 @@ public class CameraManager : SingletonManager<CameraManager>
             Vector3 targetPos = (adult.transform.position + kid.transform.position) / 2 +
                                 _camera.orthographicSize / 4f * Vector3.up;
             pivot.position = Vector3.Lerp(pivot.position, targetPos, 0.01f);
-            Vector3 localPos = new Vector3(0, distance * cameraScale.y, 
-                                   Mathf.Min(-distance * cameraScale.z, -5)) + cameraOffset;
+            Vector3 localPos = new Vector3(0, Mathf.Max(distance * cameraScale.y, 0), 
+                                   Mathf.Min(-distance * cameraScale.z, -7.5f)) + cameraOffset;
             _camera.transform.localPosition = Vector3.Lerp(_camera.transform.localPosition, localPos, 0.01f);
         }
     }
