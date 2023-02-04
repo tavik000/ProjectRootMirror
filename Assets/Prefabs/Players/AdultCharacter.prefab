@@ -394,6 +394,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9162052427574394239}
     - target: {fileID: 5068881309798602479, guid: 8c320d8af610f8040b746a88d018b92e, type: 3}
+      propertyPath: _jumpForce
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5068881309798602479, guid: 8c320d8af610f8040b746a88d018b92e, type: 3}
+      propertyPath: _moveSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5068881309798602479, guid: 8c320d8af610f8040b746a88d018b92e, type: 3}
       propertyPath: _rigidbody
       value: 
       objectReference: {fileID: 8972275635952445646}

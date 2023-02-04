@@ -185,6 +185,7 @@ GameObject:
   - component: {fileID: 6191125626579815171}
   - component: {fileID: 6191125626579815168}
   - component: {fileID: 1456200797267904180}
+  - component: {fileID: 1358135701141866638}
   m_Layer: 0
   m_Name: BubbleDialog
   m_TagString: Untagged
@@ -225,6 +226,7 @@ MonoBehaviour:
   text: {fileID: 6191125626443222424}
   spriteRenderer: {fileID: 6191125628084582582}
   dialogSfx: {fileID: 0}
+  signalReceiver: {fileID: 1358135701141866638}
 --- !u!95 &6191125626579815171
 Animator:
   serializedVersion: 4
@@ -354,6 +356,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1358135701141866638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6191125626579815172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05767c33a970720449ad1acf512ee199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6191125628084582472
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +379,7 @@ GameObject:
   - component: {fileID: 6191125628084582583}
   - component: {fileID: 6191125628084582582}
   m_Layer: 0
-  m_Name: pngegg (2)
+  m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

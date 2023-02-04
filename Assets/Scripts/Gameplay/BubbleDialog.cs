@@ -11,12 +11,28 @@ public class BubbleDialog : MonoBehaviour
     [SerializeField] private TextMeshPro text;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private AudioSource dialogSfx;
+    [SerializeField] private SignalReceiver signalReceiver;
 
-    private void Start()
+    private Camera _camera;
+    private void Awake()
     {
         dialogSfx = GetComponent<AudioSource>();
+        signalReceiver = GetComponent<SignalReceiver>();
+        signalReceiver.SignalEvent += Trigger;
         text.text = showString;
         spriteRenderer.transform.localScale = Vector3.zero;
+        _camera = Camera.main;
+    }
+
+    public void SetString(string s)
+    {
+        showString = s;
+        text.text = showString;
+    }
+
+    private void Update()
+    {
+        spriteRenderer.transform.forward = transform.position - _camera.transform.position;
     }
 
     private void OnTriggerEnter(Collider other)

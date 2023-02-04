@@ -14,6 +14,8 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private Transform _groundCheckTrans;
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private AudioSource _jumpSfx;
+    [SerializeField] private BubbleDialog _dialog;
+    public BubbleDialog BubbleDialog => _dialog;
     
     private CharacterAnimator _characterAnimator;
 
@@ -32,6 +34,7 @@ public class CharacterController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _characterAnimator = GetComponentInChildren<CharacterAnimator>();
         _capsuleCollider = GetComponent<CapsuleCollider>();
+        _dialog = GetComponentInChildren<BubbleDialog>();
     }
 
     private bool IsGrounded()
