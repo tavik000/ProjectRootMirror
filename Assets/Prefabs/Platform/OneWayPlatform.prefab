@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2081924130128077795}
   - component: {fileID: 2081924130128077792}
   - component: {fileID: 2081924130128077793}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: OneWayPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 552029864301025173}
   - component: {fileID: 7510719946045627529}
   - component: {fileID: 1854157647621098323}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}

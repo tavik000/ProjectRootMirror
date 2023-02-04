@@ -37,6 +37,22 @@ public class BubbleDialog : MonoBehaviour
     {
         animator.SetBool("IsOn", isOn);
     }
-    
-    
+
+
+    public void Say(string content, float duration)
+    {
+        text.text = content;
+        Trigger(true);
+        StartCoroutine(DialogCoroutine(duration));
+    }
+
+    private IEnumerator DialogCoroutine(float duration)
+    {
+        float startTime = Time.time;
+        while (Time.time < startTime + duration)
+        {
+            yield return null;
+        } 
+        Trigger(false);
+    }
 }
