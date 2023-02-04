@@ -43,7 +43,7 @@ public class CharacterController : MonoBehaviour
         HandleHorizontalMovement();
         HandleJump();
         HandleClimb();
-        HandleInteract();
+        // HandleInteract();
     }
 
 
@@ -164,6 +164,7 @@ public class CharacterController : MonoBehaviour
         }
     }
 
+    // No need
     private void HandleInteract()
     {
         if (_isClimbing || _isJumping)
