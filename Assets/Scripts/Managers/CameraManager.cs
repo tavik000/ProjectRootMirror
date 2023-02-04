@@ -14,9 +14,11 @@ public class CameraManager : SingletonManager<CameraManager>
     [SerializeField] private Vector3 cameraScale;
     [SerializeField] private Vector3 cameraOffset;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private Animator animator;
 
     private Camera _camera;
     private bool _forward;
+    private bool _stopUpdate;
 
     private void Start()
     {
@@ -26,6 +28,10 @@ public class CameraManager : SingletonManager<CameraManager>
 
     private void Update()
     {
+        if (_stopUpdate)
+        {
+            return;
+        }
         if (Input.GetKeyDown(KeyCode.S))
         {
             Rotate180();
@@ -62,5 +68,11 @@ public class CameraManager : SingletonManager<CameraManager>
     {
         _forward = !_forward;
         audioSource.PlayOneShot(audioSource.clip);
+    }
+
+    public void RotateAnimation()
+    {
+        _stopUpdate = true;
+        animator.SetTrigger("Rotate");
     }
 }

@@ -17,6 +17,8 @@ public class CharacterController : MonoBehaviour
     
     private CharacterAnimator _characterAnimator;
 
+    public CharacterAnimator CharacterAnimator => _characterAnimator;
+
     private float _jumpTimestamp;
     private float _interactTimestamp;
     private bool _isTouchingLadder;
