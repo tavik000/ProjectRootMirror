@@ -4,25 +4,17 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public static class GameSceneManager
+public class GameSceneManager : SingletonManager<GameSceneManager>
 {
-    public static void GoNextLevel()
+    [SerializeField] private int _toLoadNextLevelIndex;
+    public void GoNextLevel()
     {
         LoadNextScene();
     }
 
-    private static void LoadNextScene()
+    private void LoadNextScene()
     {
-        int count = EditorBuildSettings.scenes.Length;
-
-        int currentIndex = SceneManager.GetActiveScene().buildIndex;
-        if (currentIndex + 1 < count)
-        {
-            SceneManager.LoadScene(currentIndex + 1);
-        }
-        else
-        {
-            Debug.Log($"no level {currentIndex + 1}");
-        }
+        SceneManager.LoadScene(_toLoadNextLevelIndex);
     }
+    
 }

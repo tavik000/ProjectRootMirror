@@ -13,6 +13,6 @@ public class StartButton : MonoBehaviour
 
     private static void OnClickStartButton()
     {
-        GameSceneManager.GoNextLevel();
+        GameSceneManager.Instance.GoNextLevel();
     }
 }

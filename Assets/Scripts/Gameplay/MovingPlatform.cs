@@ -54,20 +54,20 @@ public class MovingPlatform : DoubleFaceObject
         _rigidbody.MovePosition(targetPos);
     }
     
-    void OnDrawGizmosSelected()
-    {
-        // Draw a yellow sphere at the transform's position
-        Gizmos.color = Color.yellow;
-        if (EditorApplication.isPlaying)
-        {
-            Gizmos.DrawSphere(new Vector3(_originalPos.x + moveOffset.x,
-                _originalPos.y + moveOffset.y, transform.position.z), 0.5f);
-        }
-        else
-        {
-            Gizmos.DrawSphere(transform.position + 
-                              new Vector3(moveOffset.x, moveOffset.y, 0), 0.5f);
-
-        }
-    }
+    // void OnDrawGizmosSelected()
+    // {
+    //     // Draw a yellow sphere at the transform's position
+    //     Gizmos.color = Color.yellow;
+    //     if (EditorApplication.isPlaying)
+    //     {
+    //         Gizmos.DrawSphere(new Vector3(_originalPos.x + moveOffset.x,
+    //             _originalPos.y + moveOffset.y, transform.position.z), 0.5f);
+    //     }
+    //     else
+    //     {
+    //         Gizmos.DrawSphere(transform.position + 
+    //                           new Vector3(moveOffset.x, moveOffset.y, 0), 0.5f);
+    //
+    //     }
+    // }
 }
