@@ -49,12 +49,18 @@ public class Mirror : MonoBehaviour
     public void PlayTimeline()
     {
         touchMirror.PlayTimeline(_adult, _kid);
+        // Only for level 8
+        
+        
         Invoke(nameof(GoNextLevel),5);
     }
 
+    // [SerializeField] private Level8 _level8;
     private void GoNextLevel()
     {
         GameSceneManager.Instance.GoNextLevel();
+        // _level8 = FindObjectOfType<Level8>();
+        // _level8.ShowEndDialog();
     }
     
 }
