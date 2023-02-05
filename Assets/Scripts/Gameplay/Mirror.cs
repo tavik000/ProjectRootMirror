@@ -51,6 +51,12 @@ public class Mirror : MonoBehaviour
     public void PlayTimeline()
     {
         touchMirror.PlayTimeline(_adult, _kid);
+        Invoke("GoNextLevel",5);
+    }
+
+    private void GoNextLevel()
+    {
+        GameSceneManager.GoNextLevel();
     }
     
 }
