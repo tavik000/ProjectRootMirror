@@ -8,7 +8,8 @@ public class ClickableButton : MonoBehaviour
     [SerializeField] private SignalSender signalSender;
     [SerializeField] private Animator animator;
     [SerializeField] private bool cannotOff;
-
+    [SerializeField] private bool needKeepClicking = true;
+    
     [SerializeField] private AudioSource clickSfx;
     
     private void OnTriggerEnter(Collider other)
@@ -23,7 +24,10 @@ public class ClickableButton : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Trigger(false);
+            if (needKeepClicking)
+            {
+                Trigger(false);
+            }
         }
     }
 

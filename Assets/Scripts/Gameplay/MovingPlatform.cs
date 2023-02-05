@@ -17,8 +17,7 @@ public class MovingPlatform : DoubleFaceObject
     public float MoveSeconds => _moveSeconds;
 
     protected float _value;
-    
-// Start is called before the first frame update
+
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -28,7 +27,6 @@ public class MovingPlatform : DoubleFaceObject
         _originalPos = new Vector2(transform.position.x, transform.position.y);
     }
 
-// Update is called once per frame
     private void FixedUpdate()
     {
         if (_isActive)
@@ -48,12 +46,12 @@ public class MovingPlatform : DoubleFaceObject
         MoveTo(_value);
     }
 
-    protected void MoveTo(float value)// 0-1
+    protected void MoveTo(float value) // 0-1
     {
         Vector2 targetPos = _originalPos + value * moveOffset;
         _rigidbody.MovePosition(targetPos);
     }
-    
+
     // void OnDrawGizmosSelected()
     // {
     //     // Draw a yellow sphere at the transform's position
